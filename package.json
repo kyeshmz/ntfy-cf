@@ -1,0 +1,19 @@
+{
+  "name": "ntfy-cf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "types": "wrangler types",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.21.2",
+    "@cloudflare/workers-types": "latest",
+    "@types/node": "^26.2.0",
+    "typescript": "latest",
+    "vitest": "^4.1.10",
+    "wrangler": "latest"
+  }
+}

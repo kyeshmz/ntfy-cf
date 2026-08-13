@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "ntfy": {
+        "type": "remote",
+        "url": "https://ntfy-kyeshimizu.kyeshimizu.workers.dev/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer {env:NTFY_CF_TOKEN}"
+        }
+      }
+    }
+  }
+}

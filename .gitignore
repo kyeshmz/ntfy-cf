@@ -1,0 +1,5 @@
+node_modules/
+.wrangler/
+.dev.vars
+.publish-token
+worker-startup.cpuprofile
