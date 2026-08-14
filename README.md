@@ -173,10 +173,11 @@ See [`examples/worker-publisher.ts`](examples/worker-publisher.ts) for a
 complete publisher entrypoint. Service bindings are private Worker-to-Worker
 calls; do not expose the binding object to untrusted request data.
 
-## MCP and Agent Skill
+## OpenCode Plugin, MCP, and Agent Skill
 
-The repository includes a project-local OpenCode MCP configuration and skill:
+The repository includes a project-local OpenCode plugin, MCP configuration, and skill:
 
+- `.opencode/plugins/ntfy-cf.js` automatically sends lifecycle notifications.
 - `opencode.jsonc` connects the deployed `/mcp` endpoint.
 - `.opencode/skills/ntfy-cf/SKILL.md` teaches agents when and how to notify.
 
@@ -184,10 +185,18 @@ Set the token before starting OpenCode from this repository:
 
 ```sh
 export NTFY_CF_TOKEN='replace-with-your-worker-secret'
+export NTFY_CF_TOPIC='agent-status'
 opencode2
 ```
 
-OpenCode discovers the `ntfy-cf` skill and the `ntfy` MCP server automatically.
+OpenCode discovers the plugin, the `ntfy-cf` skill, and the `ntfy` MCP server
+automatically. The plugin sends notifications when a root session finishes,
+encounters an error, or requests permission. Child-session completion and error
+events are suppressed. Set `NTFY_CF_URL` to override the deployed Worker URL.
+Delivery failures are logged and never interrupt the OpenCode session.
+The plugin targets OpenCode's V2 event API; preview builds that do not yet
+expose `ctx.event.subscribe()` load the plugin but disable automatic events.
+
 The MCP uses header authentication rather than OAuth and supports stateless
 Streamable HTTP JSON-RPC requests. Do not commit the token to OpenCode config.
 
